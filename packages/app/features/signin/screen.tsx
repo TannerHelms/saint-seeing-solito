@@ -3,7 +3,7 @@ import { P, Text } from "app/design/typography";
 import { View } from "moti";
 import { useState } from "react";
 import { Button, TextInput } from "react-native";
-import { auth } from "../auth/index.native";
+import { auth } from "../auth/index";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SignInScreen() {
