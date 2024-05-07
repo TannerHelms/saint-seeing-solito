@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1012597148133-mdqvkcekua1o36aburotoa0g8ovnb9r5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1012597148133-mdqvkcekua1o36aburotoa0g8ovnb9r5</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1012597148133-5glgijpsk861hehstg0ch0mkmel59thp.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCT7tPwsRkVqTxcbcbUsXogsQWUbfX6ZVA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1012597148133</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mycompany.saintseeing</string>
+	<key>PROJECT_ID</key>
+	<string>saint-seeing-5d426</string>
+	<key>STORAGE_BUCKET</key>
+	<string>saint-seeing-5d426.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1012597148133:ios:d11616d7e509b8d375870c</string>
+</dict>
+</plist>

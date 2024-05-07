@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "1012597148133",
+    "project_id": "saint-seeing-5d426",
+    "storage_bucket": "saint-seeing-5d426.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012597148133:android:a0dae8bd2500614e75870c",
+        "android_client_info": {
+          "package_name": "com.mycompany.saintseeing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012597148133-5glgijpsk861hehstg0ch0mkmel59thp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.saintseeing",
+            "certificate_hash": "471199e6d892c686f94596e4e7e3233ea285723d"
+          }
+        },
+        {
+          "client_id": "1012597148133-p6b92oibgo11ksmtovv1buuh1b5kp9rl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.saintseeing",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "1012597148133-3h8rvu91s5o8qddd54ln4rbh5o85fhkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYaucO8Y922UOt2bJDlqCkRxgxougunxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012597148133-3h8rvu91s5o8qddd54ln4rbh5o85fhkp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1012597148133-mdqvkcekua1o36aburotoa0g8ovnb9r5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.saintseeing"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

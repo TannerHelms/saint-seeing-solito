@@ -6,7 +6,11 @@
     "scheme": "solito-nativewind",
     "platforms": ["ios", "android"],
     "ios": {
-      "bundleIdentifier": "com.solito.nativewind"
+      "bundleIdentifier": "com.solito.nativewind",
+      "googleServicesFile": "./google/GoogleService-Info.plist"
+    },
+    "android": {
+      "googleServicesFile": "./google/google-services.json"
     }
   }
 }

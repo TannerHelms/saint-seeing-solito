@@ -43,6 +43,7 @@ export function HomeScreen() {
       </View>
       <View className="h-[32px]" />
       <Row className="space-x-8">
+        <TextLink href="/signin">Sign in</TextLink>
         <TextLink href="/user/fernando">Regular Link</TextLink>
         <MotiLink
           href="/user/fernando"
