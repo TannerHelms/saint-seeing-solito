@@ -3758,6 +3758,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/firebase@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@types/firebase@npm:3.2.1"
+  dependencies:
+    firebase: "*"
+  checksum: 0459d9dd3c08c67955bc2e594628b37de061c59105a52f899a13da810e754b70440607b2ffe81d6afd48ec1254ead7a3ca3a9809b15a013d9720d6f7a972a103
+  languageName: node
+  linkType: hard
+
 "@types/hammerjs@npm:^2.0.36":
   version: 2.0.41
   resolution: "@types/hammerjs@npm:2.0.41"
@@ -4964,9 +4973,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001406, caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001464":
-  version: 1.0.30001473
-  resolution: "caniuse-lite@npm:1.0.30001473"
-  checksum: 007ad17463612d38080fc59b5fa115ccb1016a1aff8daab92199a7cf8eb91cf987e85e7015cb0bca830ee2ef45f252a016c29a98a6497b334cceb038526b73f1
+  version: 1.0.30001616
+  resolution: "caniuse-lite@npm:1.0.30001616"
+  checksum: adbfdb5e2c02b060834874bec3deb7865a2717fa417b08ad8235af806c48ad7bc433bbf053e1ea48209d28c603c6e6d163eee3f0e4eec70e72569e378a7f9106
   languageName: node
   linkType: hard
 
@@ -6784,7 +6793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firebase@npm:^10.11.1":
+"firebase@npm:*, firebase@npm:^10.11.1":
   version: 10.11.1
   resolution: "firebase@npm:10.11.1"
   dependencies:
@@ -11867,9 +11876,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "solito-with-tailwind@workspace:."
   dependencies:
+    "@types/firebase": ^3.2.1
     "@types/react": ^18.2.21
     "@types/react-native": ^0.72.2
     eslint: ^8.21.0
+    firebase: ^10.11.1
     prettier: ^3.0.3
     prettier-plugin-tailwindcss: ^0.5.4
     turbo: ^1.4.2

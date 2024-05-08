@@ -1,19 +1,28 @@
 
 import { P, Text } from "app/design/typography";
 import { View } from "moti";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, TextInput } from "react-native";
 import { auth } from "../auth/index";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "solito/router";
+import { AuthGate } from "../auth/auth-gate";
 
 export default function SignInScreen() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const router = useRouter()
+
+    useEffect(() => {
+        if (auth.currentUser) {
+            router.replace("/")
+        }
+    }, [])
 
     const submitForm = async () => {
         try {
-            const resp = await signInWithEmailAndPassword(auth, email, password)
-            console.log('success')
+            await signInWithEmailAndPassword(auth, email, password)
+            router.replace("/")
         } catch (error) {
             if (error.code.includes("invalid")) {
                 console.log("Invalid email or password")    

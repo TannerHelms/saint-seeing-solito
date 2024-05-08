@@ -1,4 +1,3 @@
-import SignInScreen from "app/features/signin/screen";
-export default function SignInPage() {
-    return <SignInScreen />
-}
+import SignInScreen from "app/features/signin/screen"
+
+export default SignInScreen

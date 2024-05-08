@@ -5,15 +5,9 @@ export default function Root() {
   return (
     <Provider>
       <Stack>
-
         <Stack.Screen name="index" options={
           { title: 'Home' }
         } />
-
-        <Stack.Screen name="user/[id]" options={
-          { title: 'User Details' }
-        } />
-
       </Stack>
     </Provider>
   )
