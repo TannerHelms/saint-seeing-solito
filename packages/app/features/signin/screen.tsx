@@ -1,12 +1,10 @@
 
-import { P, Text } from "app/design/typography";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { View } from "moti";
 import { useEffect, useState } from "react";
 import { Button, TextInput } from "react-native";
-import { auth } from "../auth/index";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "solito/router";
-import { AuthGate } from "../auth/auth-gate";
+import { auth } from "../auth/index";
 
 export default function SignInScreen() {
     const [email, setEmail] = useState('')
@@ -22,13 +20,10 @@ export default function SignInScreen() {
     const submitForm = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
-            router.replace("/")
+            // router.replace("/")
         } catch (error) {
-            if (error.code.includes("invalid")) {
-                console.log("Invalid email or password")    
-            } else {
-                console.log(error)
-            }
+            console.log(error)
+            console.log("Invalid email or password")    
         }
     }
 

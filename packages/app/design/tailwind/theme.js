@@ -7,5 +7,13 @@ const theme = {
 }
 
 module.exports = {
-  theme,
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#C2CCBC',
+        'secondary': '#A6B6A1',
+        'modal': '#00000080',
+      }
+    }
+  }
 }
