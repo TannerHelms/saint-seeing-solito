@@ -1,4 +1,4 @@
-import { DocumentData, addDoc, collection, doc, getDocs, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import { DocumentData, addDoc, collection, doc, getDocs, onSnapshot, orderBy, query, serverTimestamp, setDoc } from "firebase/firestore";
 import { Me } from "./users"
 import { auth, db } from "../auth";
 import uuid from 'react-native-uuid';
@@ -48,9 +48,9 @@ export async function sendMessage(ref, message) {
     export async function getMessages(ref: string) {
         const userUid = auth.currentUser!!.uid
         onSnapshot(
-            collection(db, 'chats', ref, 'messages'),
+            query(collection(db, 'chats', ref, 'messages'), orderBy('timestamp', 'asc')),
             (snapshot) => {
-                const messages = snapshot.docs.map(doc => {
+                let messages = snapshot.docs.map(doc => {
                     let data = doc.data()
                     data.ref = doc.id
                     userUid === data.sender ? data.sent = true : data.sent = false

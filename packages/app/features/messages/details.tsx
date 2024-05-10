@@ -35,13 +35,14 @@ export default function DetailsScreen({navigation}) {
             onSnapshot(
                 collection(db, 'chats', ref, 'messages'),
                 (snapshot) => {
-                    const messages = snapshot.docs.map(doc => {
+                    let messages = snapshot.docs.map(doc => {
                         let data = doc.data()
                         data.ref = doc.id
                         userUid === data.sender ? data.sent = true : data.sent = false
                         return data
                     })
-                   setMessages(messages.reverse())
+                    messages.sort((a, b) => a.timestamp - b.timestamp)
+                   setMessages(messages)
                 }
             )
         }
@@ -49,10 +50,15 @@ export default function DetailsScreen({navigation}) {
     }, [db])
 
     return (
-            <ScrollView className="min-h-screen">
-            <KeyboardAvoidingView behavior="position" className="flex-1">
-        <View className="flex min-h-screen">
-                <ScrollView>
+        
+            // <ScrollView className="min-h-screen max-h-screen">
+            // <KeyboardAvoidingView behavior="position" className="flex-1">
+            <View className='flex-1'>
+        <View className="p-3">
+                <ScrollView 
+                     ref={ref => {this.scrollView = ref}}
+                     onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
+                >
                     {messages && messages.map((message, idx) => {
                         return (
                             <View key={idx} className={message.sent ? 'flex flex-row justify-end' : 'flex flex-row justify-start'}>
@@ -62,9 +68,10 @@ export default function DetailsScreen({navigation}) {
                             </View>
                         )
                     })}
+                    <View className='h-36'/>
                 </ScrollView>
             </View>
-            <View className="absolute bottom-0 h-36 bg-white w-full">
+            <View className="absolute bottom-0 h-22 bg-white w-full">
                 <View className="relative z-50 bg-gray-100 flex flex-row mx-2 rounded-full my-2 p-2 items-center space-x-2 pr-4">
                     <Ionicons name="add" size={24} color="black" className="size-5 z-50 text-gray-500" />
                     <TextInput placeholder="Message..." className="rounded-full text-gray-700 focus:shadow-lg flex-1" onChangeText={setMessage} />
@@ -73,7 +80,8 @@ export default function DetailsScreen({navigation}) {
                     </Pressable>
                 </View>
             </View>
-          </KeyboardAvoidingView>
-            </ScrollView>
+            </View>
+        //    </KeyboardAvoidingView>
+        //       </ScrollView>
     )
 }
