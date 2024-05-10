@@ -1,10 +1,10 @@
-import { DocumentData, addDoc, collection, getDocs, serverTimestamp } from "firebase/firestore";
+import { DocumentData, addDoc, collection, doc, getDocs, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import { Me } from "./users"
-import { db } from "../auth";
-
+import { auth, db } from "../auth";
+import uuid from 'react-native-uuid';
 export async function CreateChat(user) {
     const me = await Me() as DocumentData;
-    await addDoc(collection(db, "chats"), {
+    const chat = await addDoc(collection(db, "chats"), {
         user_a: {
                 ref: me.ref,
                 display_name: me.display_name,
@@ -27,9 +27,36 @@ export async function GetChats() {
     let chats = [] as DocumentData[]
     querySnapshot.forEach((doc) => {
         let data = doc.data()
+        data.ref = doc.id
         if (data.user_a.ref === me.ref || data.user_b.ref === me.ref) {
             chats.push(data)
         }
     })
     return chats
 }
+
+export async function sendMessage(ref, message) {
+    const user = auth.currentUser;
+    const uid = uuid.v4() as string
+    await setDoc(doc(db, 'chats', ref, "messages", uid), {
+        body: message,
+        sender: user!!.uid,
+        timestamp: serverTimestamp()
+    })
+    }
+
+    export async function getMessages(ref: string) {
+        const userUid = auth.currentUser!!.uid
+        onSnapshot(
+            collection(db, 'chats', ref, 'messages'),
+            (snapshot) => {
+                const messages = snapshot.docs.map(doc => {
+                    let data = doc.data()
+                    data.ref = doc.id
+                    userUid === data.sender ? data.sent = true : data.sent = false
+                    return data
+                })
+               return messages.reverse()
+            }
+        )
+    }

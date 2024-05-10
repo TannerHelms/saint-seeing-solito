@@ -19,7 +19,11 @@ export default function MessageScreen() {
             onSnapshot(
                 collection(db, 'chats'),
                 (snapshot) => {
-                    const chats = snapshot.docs.map(doc => doc.data())
+                    const chats = snapshot.docs.map(doc => {
+                        let data = doc.data()
+                        data.ref = doc.id
+                        return data
+                    })
                     setChats(chats)
                 }
             )
@@ -39,11 +43,13 @@ export default function MessageScreen() {
                 <Feather name="edit" size={24} color="black" onPress={() => setModal(true)} />
             </Row>
             <View className='space-y-10'>
-                {chats.map((chat: any, idx) => (
-                    <Pressable onPress={() => {router.push('/details/' + chat.ref)}}>
-                        <ChatTile chat={chat} key={idx} />
+                {chats.map((chat: any, idx) => {
+                    return (
+                        <Pressable onPress={() => {router.push('/details/' + chat.ref)}} key={idx}>
+                        <ChatTile chat={chat} />
                     </Pressable>
-                ))}
+                    )
+})}
             </View>
         </View>
     )
