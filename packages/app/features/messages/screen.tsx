@@ -1,5 +1,5 @@
 import { Feather } from '@expo/vector-icons';
-import { DocumentData, collection, onSnapshot } from "firebase/firestore";
+import { DocumentData, collection, onSnapshot, query, where, or } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Row } from "../../design/layout";
 import { P } from "../../design/typography";
@@ -9,6 +9,7 @@ import { ChatTile } from '../profile/chat-tile';
 import { CreateChatModal } from "./create-chat-modal";
 import { Pressable } from 'react-native';
 import { useRouter } from 'solito/router';
+import { Me } from '../utils/users';
 
 export default function MessageScreen() {
     const [chats, setChats] = useState<DocumentData[]>([])
@@ -16,8 +17,11 @@ export default function MessageScreen() {
     const router = useRouter()
     useEffect(() => {
         async function get() {
+            const me = await Me()
+            const chatRef = collection(db, 'chats')
+            const q = query(chatRef, or(where('user_a.ref', '==', me!!.ref), where('user_b.ref', '==', me!!.ref)))
             onSnapshot(
-                collection(db, 'chats'),
+                q,
                 (snapshot) => {
                     const chats = snapshot.docs.map(doc => {
                         let data = doc.data()
