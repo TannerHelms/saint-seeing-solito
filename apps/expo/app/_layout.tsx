@@ -2,17 +2,44 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { auth } from 'app/features/auth';
 import { HomeScreen } from 'app/features/home/screen';
-import MeScreen from 'app/features/me/screen';
-import ProfileScreen from 'app/features/profile/screen';
-import SignInScreen from './signin';
-import MessageScreen from 'app/features/messages/screen';
+import { MeScreen } from 'app/features/me/screen';
 import DetailsScreen from 'app/features/messages/details';
+import MessageScreen from 'app/features/messages/screen';
+import ProfileScreen from 'app/features/profile/screen';
+import { Provider } from 'app/provider';
+import { Stack } from 'expo-router';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import 'react-native-gesture-handler';
+
 const Tab = createBottomTabNavigator()
 const HomeStack = createNativeStackNavigator();
 const MessageStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
 
 export default function Root() {
+  const [user, setUser] = useState(auth.currentUser)
+  
+  useEffect(() => {
+    const event = onAuthStateChanged(auth, (user) => {
+      setUser(user)
+    })
+    return () => event()
+  }, [])
+
+  if (!user || user == undefined) return (
+    <Provider>
+      <Stack>
+        <Stack.Screen name="index" options={
+          { title: 'Home' ,
+            headerShown: false
+          }
+        } />
+      </Stack>
+    </Provider>
+  )
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
@@ -45,19 +72,7 @@ export default function Root() {
             <Ionicons name="person" color={color} size={size} />
           ),
         }}
-        />
-
-        <Tab.Screen 
-        name="signin" 
-        component={SignInScreen}  
-        options={{
-          tabBarLabel: 'Signin',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" color={color} size={size} />
-          ),
-        }}
-        />
-        
+        />        
       </Tab.Navigator>
   </NavigationContainer>
   )

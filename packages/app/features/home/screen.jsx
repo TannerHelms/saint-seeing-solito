@@ -12,6 +12,7 @@ import { useRouter } from 'solito/router'
 import UserPhotos from '../profile/user-photos'
 import UserDetails from '../profile/user-details'
 import { Users } from '../utils/users'
+import { AuthGate } from '../auth/auth-gate'
 
 export function HomeScreen() {
   const [data, setData] = useState(null)
@@ -26,7 +27,6 @@ export function HomeScreen() {
   }, [])
 
   return (
-    // <AuthGate>
     <View className="w-full flex-1 p-3">
       {data && (
         <ScrollView>
@@ -42,6 +42,5 @@ export function HomeScreen() {
         </ScrollView>
       )}
     </View>
-    // </AuthGate>
   )
 }

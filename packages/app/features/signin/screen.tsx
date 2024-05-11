@@ -11,6 +11,18 @@ export default function SignInScreen() {
     const [password, setPassword] = useState('')
     const router = useRouter()
 
+    // useEffect(() => {
+    //     console.log(navigation)
+        // navigation.getParent()?.setOptions({
+        //   tabBarStyle: {
+        //     display: "none"
+        //   }
+        // });
+        // return () => navigation.getParent()?.setOptions({
+        //   tabBarStyle: undefined
+        // });
+    //   }, [navigation]);
+
     useEffect(() => {
         if (auth.currentUser) {
             router.replace("/")

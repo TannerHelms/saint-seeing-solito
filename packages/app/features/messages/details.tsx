@@ -1,12 +1,12 @@
 import { Feather, Ionicons } from '@expo/vector-icons';
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { KeyboardAvoidingView, Pressable, ScrollView, TextInput } from "react-native";
 import { createParam } from 'solito';
 import { Text } from "../../design/typography";
 import { View } from "../../design/view";
 import { getMessages, sendMessage } from '../utils/chats';
 import { auth, db } from '../auth';
-import { DocumentData, collection, onSnapshot } from 'firebase/firestore';
+import { DocumentData, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 type Params = {
     id?: string
     screen: string
@@ -18,6 +18,13 @@ export default function DetailsScreen({navigation}) {
     const userUid = auth.currentUser!!.uid
     const [messages, setMessages] = useState<DocumentData[]>([])
     const [message, setMessage] = useState<string>()
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: 'Chat'
+        })
+    }, [navigation])
+
     useEffect(() => {
         navigation.getParent()?.setOptions({
           tabBarStyle: {
@@ -32,8 +39,10 @@ export default function DetailsScreen({navigation}) {
     
     useEffect(() => {
         async function get() {
+            const messagesRef = collection(db, 'chats', ref, 'messages')
+            const q = query(messagesRef, orderBy("timestamp"))
             onSnapshot(
-                collection(db, 'chats', ref, 'messages'),
+                q,
                 (snapshot) => {
                     let messages = snapshot.docs.map(doc => {
                         let data = doc.data()
@@ -41,7 +50,6 @@ export default function DetailsScreen({navigation}) {
                         userUid === data.sender ? data.sent = true : data.sent = false
                         return data
                     })
-                    messages.sort((a, b) => a.timestamp - b.timestamp)
                    setMessages(messages)
                 }
             )

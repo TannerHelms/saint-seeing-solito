@@ -1,3 +1,3 @@
-import { HomeScreen } from 'app/features/home/screen'
+import SignInScreen from "app/features/signin/screen";
 
-export default HomeScreen
+export default SignInScreen;

@@ -57,5 +57,5 @@ export default function ProfileScreen() {
     </View>
         )
     }
-
+    return null
 }

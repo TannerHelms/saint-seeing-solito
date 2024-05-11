@@ -1,4 +1,4 @@
-import { DocumentData, addDoc, collection, doc, getDocs, onSnapshot, orderBy, query, serverTimestamp, setDoc } from "firebase/firestore";
+import { DocumentData, addDoc, collection, doc, getDocs, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { Me } from "./users"
 import { auth, db } from "../auth";
 import uuid from 'react-native-uuid';
@@ -42,6 +42,10 @@ export async function sendMessage(ref, message) {
         body: message,
         sender: user!!.uid,
         timestamp: serverTimestamp()
+    })
+    await updateDoc(doc(db, "chats", ref), {
+        last_message: message,
+        last_message_date: serverTimestamp()
     })
     }
 

@@ -1478,13 +1478,13 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-object-assign@npm:^7.16.7":
-  version: 7.18.6
-  resolution: "@babel/plugin-transform-object-assign@npm:7.18.6"
+  version: 7.24.1
+  resolution: "@babel/plugin-transform-object-assign@npm:7.24.1"
   dependencies:
-    "@babel/helper-plugin-utils": ^7.18.6
+    "@babel/helper-plugin-utils": ^7.24.0
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: a9738264cc996c54febafa0701c5a182d99afbddbfe9fbcc0b2536e3b2332b3318a8143aacd0368e31e18c24cd1b1980be7a3b0b2e5122efb520952d863a1203
+  checksum: 88f56168f621501dc1aa796d569c76042367c2c3cb2c24f1419ed0783055a393f5722216a87abd9793365a0bd29b42a4e8055e93432c4b3657e6b5a22fe61c6f
   languageName: node
   linkType: hard
 

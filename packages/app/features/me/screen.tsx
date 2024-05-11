@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native'
 import UserProfile from "../profile/user-profile"
 import UserPhotos from "../profile/user-photos"
 import UserDetails from "../profile/user-details"
-export default function MeScreen() {
+export function MeScreen() {
   const [user, setUser] = useState<DocumentData>()
   useEffect(() => {
     async function get() {
@@ -36,4 +36,5 @@ export default function MeScreen() {
       </View>
     )
   }
+  return null
 }
