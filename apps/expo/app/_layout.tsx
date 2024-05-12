@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,7 +13,6 @@ import { Provider } from 'app/provider';
 import { Stack } from 'expo-router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator()
 const HomeStack = createNativeStackNavigator();

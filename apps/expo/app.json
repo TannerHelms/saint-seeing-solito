@@ -4,13 +4,23 @@
     "slug": "solito-nativewind",
     "version": "1.0.0",
     "scheme": "solito-nativewind",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "ios": {
       "bundleIdentifier": "com.solito.nativewind",
       "googleServicesFile": "./google/GoogleService-Info.plist"
     },
     "android": {
+      "package": "com.sharptechnology.saintseeing",
+      "versionCode": 1,
       "googleServicesFile": "./google/google-services.json"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0413a001-d135-4b2f-9db3-fa52cc720e34"
+      }
     }
   }
 }
