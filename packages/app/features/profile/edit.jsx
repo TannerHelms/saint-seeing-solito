@@ -20,11 +20,13 @@ import {
   uploadBytes,
   uploadBytesResumable,
 } from 'firebase/storage'
+import { useRouter } from 'solito/router'
 const DIVIDER_HEIGHT = 'h-4'
 
 export default function EditProfileScreen() {
   const [user, setUser] = useState()
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const showToast = (success = true) => {
     if (success) {
@@ -84,6 +86,7 @@ export default function EditProfileScreen() {
       setLoading(false)
       if (!docRef) {
         showToast(true)
+        router.replace('/Profile')
       } else {
         showToast(false)
       }

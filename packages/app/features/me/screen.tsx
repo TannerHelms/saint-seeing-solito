@@ -1,24 +1,22 @@
 import { View } from 'app/design/view'
-import { DocumentData, doc, getDoc } from 'firebase/firestore'
+import { DocumentData, doc, getDoc, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../auth'
 import { ScrollView } from 'react-native'
-import UserProfile from "../profile/user-profile"
-import UserPhotos from "../profile/user-photos"
-import UserDetails from "../profile/user-details"
+import UserProfile from '../profile/user-profile'
+import UserPhotos from '../profile/user-photos'
+import UserDetails from '../profile/user-details'
 export function MeScreen() {
   const [user, setUser] = useState<DocumentData>()
   useEffect(() => {
-    async function get() {
-      if (auth.currentUser) {
-        const querySnapshot = await getDoc(doc(db, 'users', auth.currentUser.uid))
-        const data = querySnapshot.data()
-        if (data) {
-          setUser(data)
-        }
+    const docRef = doc(db, 'users', auth.currentUser?.uid as string)
+    onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const profile = docSnap.data()
+        profile.ref = docSnap.id
+        setUser(profile)
       }
-    }
-    get()
+    })
   }, [auth.currentUser])
 
   if (user) {
