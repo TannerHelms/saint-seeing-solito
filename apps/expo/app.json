@@ -4,18 +4,36 @@
     "slug": "solito-nativewind",
     "version": "1.0.0",
     "scheme": "solito-nativewind",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Give Saint Seeing permission to access your images"
+        }
+      ]
+    ],
     "platforms": [
       "ios",
       "android"
     ],
     "ios": {
       "bundleIdentifier": "com.solito.nativewind",
-      "googleServicesFile": "./google/GoogleService-Info.plist"
+      "googleServicesFile": "./google/GoogleService-Info.plist",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Give Saint Seeing permission to save photos",
+        "NSCameraUsageDescription": "Give Saint Seeing permission to access your camera",
+        "NSMicrophoneUsageDescription": "Give Saint Seeing permission to access your microphone"
+      }
     },
     "android": {
       "package": "com.sharptechnology.saintseeing",
       "versionCode": 1,
-      "googleServicesFile": "./google/google-services.json"
+      "googleServicesFile": "./google/google-services.json",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "extra": {
       "eas": {

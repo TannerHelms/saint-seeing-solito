@@ -6190,6 +6190,7 @@ __metadata:
     app: "*"
     babel-plugin-module-resolver: ^5.0.2
     expo: ~51.0.2
+    expo-image-picker: ~15.0.4
     expo-linking: ~6.3.1
     expo-router: ~3.5.11
     expo-splash-screen: ~0.27.4
@@ -6252,6 +6253,26 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 74284f7aaa809de1432e98090eca61f255c584f1a66e979a8caf435bf6d97f7322c1a6c9428ebb6ce5f4dd20a2987e8ee714a8170cc2782d1f7b87900ccc4b7e
+  languageName: node
+  linkType: hard
+
+"expo-image-loader@npm:~4.7.0":
+  version: 4.7.0
+  resolution: "expo-image-loader@npm:4.7.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 1630e988443f87fe86761fb2909e3de88978004a55f769cce7d7965c3ff6e4497e73e9607e826d9a1d5588361b92350e8d4ec0111c9a3243d04a565eddfcf346
+  languageName: node
+  linkType: hard
+
+"expo-image-picker@npm:~15.0.4":
+  version: 15.0.4
+  resolution: "expo-image-picker@npm:15.0.4"
+  dependencies:
+    expo-image-loader: ~4.7.0
+  peerDependencies:
+    expo: "*"
+  checksum: b9dbebc6681e48a95e49cc2ed940d089be69029a3b4d65df4ce1410eb9b01d0603125125030a60b5d2bec1ac98d62c0f08c8a3679c775801c9d61415d369fcc3
   languageName: node
   linkType: hard
 
