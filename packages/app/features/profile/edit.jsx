@@ -14,7 +14,12 @@ import { Timestamp, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import Toast from 'react-native-toast-message'
 import Divider from '../utils/divider'
 import * as ImagePicker from 'expo-image-picker'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from 'firebase/storage'
 const DIVIDER_HEIGHT = 'h-4'
 
 export default function EditProfileScreen() {
@@ -41,6 +46,14 @@ export default function EditProfileScreen() {
     Me().then((me) => setUser(me))
   }, [])
 
+  async function uploadImage(imageRef, path) {
+    const image = await fetch(imageRef)
+    const bytes = await image.blob()
+    const storageRef = ref(storage, path)
+    await uploadBytesResumable(storageRef, bytes)
+    return await getDownloadURL(storageRef)
+  }
+
   async function handleSubmit() {
     setLoading(true)
     try {
@@ -50,23 +63,17 @@ export default function EditProfileScreen() {
       let photo_url = user.photo_url
       let photo_background = user.photo_background
       if (me.photo_url !== user.photo_url) {
-        const blob = await fetch(user.photo_url).then((r) => r.blob())
-        const storageRef = ref(
-          storage,
+        photo_url = await uploadImage(
+          photo_url,
           `users/${user.email}/avatar/${user.ref}-${timeStamp}`,
         )
-        await uploadBytes(storageRef, blob)
-        photo_url = await getDownloadURL(storageRef)
       }
 
       if (me.photo_background !== user.photo_background) {
-        const blob = await fetch(user.photo_background).then((r) => r.blob())
-        const storageRef = ref(
-          storage,
+        photo_background = await uploadImage(
+          photo_background,
           `users/${user.email}/background/${user.ref}-${timeStamp}`,
         )
-        await uploadBytes(storageRef, blob)
-        photo_background = await getDownloadURL(storageRef)
       }
 
       const docRef = await updateDoc(userRef, {
