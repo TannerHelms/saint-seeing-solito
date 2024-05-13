@@ -9,15 +9,18 @@ import { MeScreen } from 'app/features/me/screen';
 import DetailsScreen from 'app/features/messages/details';
 import MessageScreen from 'app/features/messages/screen';
 import ProfileScreen from 'app/features/profile/screen';
+import PasswordScreen from 'app/features/profile/password';
+import SignOutScreen from 'app/features/profile/sign-out';
 import { Provider } from 'app/provider';
 import { Stack } from 'expo-router';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Tab = createBottomTabNavigator()
 const HomeStack = createNativeStackNavigator();
 const MessageStack = createNativeStackNavigator();
-const ProfileStack = createNativeStackNavigator();
+const ProfileDrawer = createDrawerNavigator();
 
 export default function Root() {
   const [user, setUser] = useState(auth.currentUser)
@@ -90,9 +93,11 @@ function Home() {
 
 function Profile() {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Profile" component={MeScreen}   />
-  </HomeStack.Navigator>
+    <ProfileDrawer.Navigator>
+      <ProfileDrawer.Screen name="Profile" component={MeScreen}   />
+      <ProfileDrawer.Screen name="Edit Password" component={PasswordScreen}   />
+      <ProfileDrawer.Screen name="Sign Out" component={SignOutScreen}   />
+  </ProfileDrawer.Navigator>
   )
 }
 

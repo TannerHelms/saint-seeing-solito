@@ -1,7 +1,7 @@
 import { useRouter } from 'solito/router'
+import { P } from '../../design/typography'
 import { View } from '../../design/view'
-import { P, Text } from '../../design/typography'
-import { Pressable } from 'react-native'
+import CustomButton from '../utils/custom-button'
 
 export default function UserDetails({ user, button = true }) {
   const router = useRouter()
@@ -31,15 +31,16 @@ export default function UserDetails({ user, button = true }) {
       </View>
       {button && (
         <View className="bg-secondary flex cursor-pointer justify-center rounded-full py-2 shadow-lg">
-          <Pressable
-            onPress={() => {
-              router.push('/profile/' + user.ref)
-            }}
-          >
-            <P className="m-auto font-semibold text-white">View Profile</P>
-          </Pressable>
+          <CustomButton 
+          text="View Profile"
+          onPress={() => {
+            router.push('/profile/' + user.ref)
+          }}
+          />
         </View>
       )}
     </View>
   )
 }
+
+
