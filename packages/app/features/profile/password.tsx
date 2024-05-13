@@ -26,17 +26,17 @@ export default function PasswordScreen({ navigation }) {
     }
   }
 
-  useEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    })
-    return () =>
-      navigation.getParent()?.setOptions({
-        tabBarStyle: undefined,
-      })
-  }, [navigation])
+  //   useEffect(() => {
+  //     navigation.getParent()?.setOptions({
+  //       tabBarStyle: {
+  //         display: 'none',
+  //       },
+  //     })
+  //     return () =>
+  //       navigation.getParent()?.setOptions({
+  //         tabBarStyle: undefined,
+  //       })
+  //   }, [navigation])
 
   async function handleSubmit() {
     updatePassword(auth.currentUser!!, password)
@@ -56,9 +56,10 @@ export default function PasswordScreen({ navigation }) {
         onChange={setPassword}
         icon="lock-closed"
         placeholder="New Password..."
+        type="password"
       />
       <CustomButton
-        text="Change Password"
+        text="Update Password"
         onPress={handleSubmit}
         className="bg-primary rounded-xl py-2"
         textColor="text-black"
