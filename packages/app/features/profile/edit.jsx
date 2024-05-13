@@ -10,7 +10,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { KeyboardAvoidingView, Pressable, ScrollView } from 'react-native'
 import CustomButton from '../utils/custom-button'
 import { db, storage } from '../auth'
-import { doc, updateDoc } from 'firebase/firestore'
+import { Timestamp, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import Toast from 'react-native-toast-message'
 import Divider from '../utils/divider'
 import * as ImagePicker from 'expo-image-picker'
@@ -19,6 +19,7 @@ const DIVIDER_HEIGHT = 'h-4'
 
 export default function EditProfileScreen() {
   const [user, setUser] = useState()
+  const [loading, setLoading] = useState(false)
 
   const showToast = (success = true) => {
     if (success) {
@@ -41,33 +42,47 @@ export default function EditProfileScreen() {
   }, [])
 
   async function handleSubmit() {
-    const me = await Me()
-    const userRef = doc(db, 'users', user.ref)
+    setLoading(true)
+    try {
+      const me = await Me()
+      const userRef = doc(db, 'users', user.ref)
+      const timeStamp = Timestamp.now().nanoseconds
+      let photo_url = user.photo_url
+      let photo_background = user.photo_background
+      if (me.photo_url !== user.photo_url) {
+        const blob = await fetch(user.photo_url).then((r) => r.blob())
+        const storageRef = ref(
+          storage,
+          `users/${user.email}/avatar/${user.ref}-${timeStamp}`,
+        )
+        await uploadBytes(storageRef, blob)
+        photo_url = await getDownloadURL(storageRef)
+      }
 
-    let photo_url = user.photo_url
-    let photo_background = user.photo_background
-    if (me.photo_url !== user.photo_url) {
-      const blob = await fetch(user.photo_url).then((r) => r.blob())
-      const storageRef = ref(storage, `users/${user.email}/photo_url`)
-      await uploadBytes(storageRef, blob)
-      photo_url = await getDownloadURL(storageRef)
-    }
+      if (me.photo_background !== user.photo_background) {
+        const blob = await fetch(user.photo_background).then((r) => r.blob())
+        const storageRef = ref(
+          storage,
+          `users/${user.email}/background/${user.ref}-${timeStamp}`,
+        )
+        await uploadBytes(storageRef, blob)
+        photo_background = await getDownloadURL(storageRef)
+      }
 
-    if (me.photo_background !== user.photo_background) {
-      const blob = await fetch(user.photo_background).then((r) => r.blob())
-      const storageRef = ref(storage, `users/${user.email}/photo_background`)
-      await uploadBytes(storageRef, blob)
-      photo_background = await getDownloadURL(storageRef)
-    }
-
-    const docRef = await updateDoc(userRef, {
-      ...user,
-      photo_url,
-      photo_background,
-    })
-    if (!docRef) {
-      showToast(true)
-    } else {
+      const docRef = await updateDoc(userRef, {
+        ...user,
+        photo_url,
+        photo_background,
+      })
+      setLoading(false)
+      if (!docRef) {
+        showToast(true)
+      } else {
+        showToast(false)
+      }
+    } catch (error) {
+      console.error(error)
+      setLoading(false)
       showToast(false)
     }
   }
@@ -85,13 +100,11 @@ export default function EditProfileScreen() {
         setUser({
           ...user,
           photo_url: result.assets[0].uri,
-          photo_url_data: result.assets[0],
         })
       } else {
         setUser({
           ...user,
           photo_background: result.assets[0].uri,
-          photo_background_data: result.assets[0],
         })
       }
     }
@@ -181,6 +194,7 @@ export default function EditProfileScreen() {
                 <AntDesign name="plus" size={20} color="black" />
               </Pressable>
             </Row>
+            <Divider height={DIVIDER_HEIGHT} />
             {user.house_rules.map((rule, idx) => (
               <View key={idx}>
                 <CustomTextInput
@@ -197,6 +211,7 @@ export default function EditProfileScreen() {
               </View>
             ))}
             <CustomButton
+              loading={loading}
               text="Save"
               className="bg-secondary w-full rounded-xl p-3"
               onPress={handleSubmit}
