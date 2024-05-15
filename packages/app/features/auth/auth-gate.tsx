@@ -6,7 +6,6 @@ import SignInScreen from "../signin/screen";
 export function AuthGate({children, navigation}) {
     const user = auth.currentUser;
     const router = useRouter();
-    console.log(navigation)
     useEffect(() => {
         if (!user) {
             router.replace("/signin");

@@ -1,16 +1,4 @@
-import { Feather, Ionicons } from '@expo/vector-icons'
-import { useEffect, useLayoutEffect, useState } from 'react'
-import {
-  KeyboardAvoidingView,
-  Pressable,
-  ScrollView,
-  TextInput,
-} from 'react-native'
-import { createParam } from 'solito'
-import { Text } from '../../design/typography'
-import { View } from '../../design/view'
-import { getMessages, sendMessage } from '../utils/chats'
-import { auth, db } from '../auth'
+import { useHeaderHeight } from '@react-navigation/elements'
 import {
   DocumentData,
   collection,
@@ -18,17 +6,27 @@ import {
   orderBy,
   query,
 } from 'firebase/firestore'
+import { Text } from 'packages/app/design/typography'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { Dimensions, KeyboardAvoidingView } from 'react-native'
+import { createParam } from 'solito'
+import { View } from '../../design/view'
+import { auth, db } from '../auth'
+import CustomTextInput from '../utils/custom-text-input'
+import SendMessage from './send-message'
+import { sendMessage } from '../utils/chats'
+import Messages from './message'
 type Params = {
   id?: string
   screen: string
 }
 const { useParams } = createParam<Params>()
-
 export default function DetailsScreen({ navigation }) {
   const ref = useParams().params.screen
   const userUid = auth.currentUser!!.uid
   const [messages, setMessages] = useState<DocumentData[]>([])
-  const [message, setMessage] = useState<string>()
+  const [body, setBody] = useState<any>()
+  const headerHeight = useHeaderHeight()
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -66,71 +64,27 @@ export default function DetailsScreen({ navigation }) {
   }, [db])
 
   return (
-    <ScrollView className="min-screen">
-      <KeyboardAvoidingView behavior="position" className="flex-1">
+    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={60}>
+      <View
+        className="flex justify-between"
+        style={{
+          height: Dimensions.get('window').height - headerHeight,
+        }}
+      >
         <View className="flex-1">
-          <View className="p-3">
-            <ScrollView
-              ref={(ref) => {
-                this.scrollView = ref
-              }}
-              onContentSizeChange={() =>
-                this.scrollView.scrollToEnd({ animated: true })
-              }
-            >
-              {messages &&
-                messages.map((message, idx) => {
-                  return (
-                    <View
-                      key={idx}
-                      className={
-                        message.sent
-                          ? 'flex flex-row justify-end'
-                          : 'flex flex-row justify-start'
-                      }
-                    >
-                      <View
-                        className={
-                          message.sent
-                            ? 'm-2 rounded-lg bg-blue-400 p-2'
-                            : 'm-2 rounded-lg bg-gray-200 p-2'
-                        }
-                      >
-                        <Text
-                          className={message.sent ? 'text-white' : 'text-black'}
-                        >
-                          {message.body}
-                        </Text>
-                      </View>
-                    </View>
-                  )
-                })}
-              <View className="h-36" />
-            </ScrollView>
-          </View>
-          <View className="h-22 absolute bottom-0 w-full bg-white">
-            <View className="relative z-50 mx-2 my-2 flex flex-row items-center space-x-2 rounded-full bg-gray-100 p-2 pr-4">
-              <Ionicons
-                name="add"
-                size={24}
-                color="black"
-                className="size-5 z-50 text-gray-500"
-              />
-              <TextInput
-                placeholder="Message..."
-                className="flex-1 rounded-full text-gray-700 focus:shadow-lg"
-                onChangeText={setMessage}
-              />
-              <Pressable
-                className="flex items-center justify-center rounded-full bg-blue-400 p-1.5"
-                onPress={() => sendMessage(ref, message)}
-              >
-                <Feather name="send" size={24} color="white" />
-              </Pressable>
-            </View>
-          </View>
+          <Messages messages={messages} />
         </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+        <View className="bg-white pb-[40px]">
+          <SendMessage
+            value={body}
+            setBody={setBody}
+            handleChangeText={setBody}
+            sendMessage={sendMessage}
+            userRef={ref}
+            messageBody={body}
+          />
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   )
 }

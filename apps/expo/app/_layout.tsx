@@ -12,6 +12,7 @@ import ProfileScreen from 'app/features/profile/screen'
 import PasswordScreen from 'app/features/profile/password'
 import SignOutScreen from 'app/features/profile/sign-out'
 import EditProfileScreen from 'app/features/profile/edit'
+import FriendRequsts from 'app/features/profile/friend-requests'
 import { Provider } from 'app/provider'
 import { Stack } from 'expo-router'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
@@ -101,6 +102,8 @@ function Profile() {
       <ProfileDrawer.Screen name="Profile" component={MeScreen} />
       <ProfileDrawer.Screen name="Edit Profile" component={EditProfileScreen} />
       <ProfileDrawer.Screen name="Edit Password" component={PasswordScreen} />
+      <ProfileDrawer.Screen name="Friend Requests" component={FriendRequsts} />
+
       <ProfileDrawer.Screen name="Sign Out" component={SignOutScreen} />
     </ProfileDrawer.Navigator>
   )
