@@ -3,7 +3,7 @@ import { Row } from 'packages/app/design/layout'
 import { P, Text } from 'packages/app/design/typography'
 import { View } from 'packages/app/design/view'
 import { useEffect, useState } from 'react'
-import { Pressable, ScrollView } from 'react-native'
+import { ActivityIndicator, Pressable, ScrollView } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import { db } from '../auth'
 import { AcceptFriendRequest, SetFriendRequests } from '../utils/friends'
@@ -24,7 +24,14 @@ export default function FriendReqests() {
     }
   }, [me, db])
 
-  if (loading) return <Text>Loading...</Text>
+  if (loading)
+    return (
+      <ActivityIndicator
+        size="small"
+        color="#A6B6A1"
+        className="my-auto p-[2px]"
+      />
+    )
 
   return (
     <View className="flex justify-center pt-5">

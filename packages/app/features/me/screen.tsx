@@ -2,7 +2,7 @@ import { View } from 'app/design/view'
 import { DocumentData, doc, getDoc, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../auth'
-import { ScrollView } from 'react-native'
+import { ActivityIndicator, ScrollView } from 'react-native'
 import UserProfile from '../profile/user-profile'
 import UserPhotos from '../profile/user-photos'
 import UserDetails from '../profile/user-details'
@@ -18,6 +18,15 @@ export function MeScreen() {
       }
     })
   }, [auth.currentUser])
+
+  if (!user)
+    return (
+      <ActivityIndicator
+        size="small"
+        color="#A6B6A1"
+        className="my-auto p-[2px]"
+      />
+    )
 
   if (user) {
     return (

@@ -8,7 +8,7 @@ import UserDetails from './user-details'
 import UserPhotos from './user-photos'
 import { AntDesign } from '@expo/vector-icons'
 import { createParam } from 'solito'
-import { Pressable, ScrollView } from 'react-native'
+import { ActivityIndicator, Pressable, ScrollView } from 'react-native'
 import Loader from '../utils/loader'
 import { GetStatus, SendFriendRequest } from '../utils/friends'
 import { Me } from '../utils/users'
@@ -64,7 +64,14 @@ export default function ProfileScreen() {
     })
   }
 
-  if (!profile) return <Loader />
+  if (!profile)
+    return (
+      <ActivityIndicator
+        size="small"
+        color="#A6B6A1"
+        className="my-auto p-[2px]"
+      />
+    )
 
   if (profile) {
     return (

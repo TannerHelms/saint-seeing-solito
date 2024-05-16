@@ -6,7 +6,7 @@ import { ScrollView } from 'moti'
 import { useEffect, useState } from 'react'
 import { SolitoImage } from 'solito/image'
 import { db } from '../auth'
-import { Pressable } from 'react-native'
+import { ActivityIndicator, Pressable } from 'react-native'
 import { Row } from '../../design/layout'
 import { useRouter } from 'solito/router'
 import UserPhotos from '../profile/user-photos'
@@ -28,6 +28,13 @@ export function HomeScreen() {
 
   return (
     <View className="w-full flex-1 p-3">
+      {!data && (
+        <ActivityIndicator
+          size="small"
+          color="#A6B6A1"
+          className="my-auto p-[2px]"
+        />
+      )}
       {data && (
         <ScrollView>
           {data.map((user, idx) => (

@@ -3,7 +3,7 @@ import { View } from 'packages/app/design/view'
 import { useEffect, useState } from 'react'
 import { Me } from '../utils/users'
 import { SetFriends } from '../utils/friends'
-import { Pressable, ScrollView } from 'react-native'
+import { ActivityIndicator, Pressable, ScrollView } from 'react-native'
 import { Row } from 'packages/app/design/layout'
 import { SolitoImage } from 'solito/image'
 
@@ -22,7 +22,14 @@ export default function FriendsScreen() {
     }
   }, [me])
 
-  if (loading) return <Text>Loading...</Text>
+  if (loading)
+    return (
+      <ActivityIndicator
+        size="small"
+        color="#A6B6A1"
+        className="my-auto p-[2px]"
+      />
+    )
 
   return (
     <View className="flex justify-center pt-5">

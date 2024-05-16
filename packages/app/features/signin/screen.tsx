@@ -25,7 +25,6 @@ export default function SignInScreen() {
   const submitForm = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      console.log('Signed in')
     } catch (error) {
       console.log(error)
       console.log('Invalid email or password')
