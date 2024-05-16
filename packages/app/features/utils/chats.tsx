@@ -15,12 +15,9 @@ import { Me } from './users'
 import { auth, db } from '../auth'
 import uuid from 'react-native-uuid'
 
-
-
-
 export async function CreateChat(user) {
   const me = (await Me()) as DocumentData
-  const chat = await addDoc(collection(db, 'chats'), {
+  await addDoc(collection(db, 'chats'), {
     user_a: {
       ref: me.ref,
       display_name: me.display_name,
@@ -28,11 +25,15 @@ export async function CreateChat(user) {
     },
     user_b: {
       ref: user.ref,
-      display_name: user.display_name,
-      photo_url: user.photo_url,
+      display_name: user.name,
+      photo_url: user.photoURL,
     },
     last_message: 'Chat Created',
     last_message_date: serverTimestamp(),
+  })
+
+  await updateDoc(doc(db, 'friend_requests', user.ref), {
+    chat: true,
   })
   return true
 }

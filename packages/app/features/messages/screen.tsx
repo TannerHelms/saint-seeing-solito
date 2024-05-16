@@ -3,20 +3,20 @@ import {
   DocumentData,
   collection,
   onSnapshot,
+  or,
   query,
   where,
-  or,
 } from 'firebase/firestore'
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { ActivityIndicator, Pressable } from 'react-native'
+import { useRouter } from 'solito/router'
 import { Row } from '../../design/layout'
 import { P } from '../../design/typography'
 import { View } from '../../design/view'
 import { db } from '../auth'
 import { ChatTile } from '../profile/chat-tile'
-import { CreateChatModal } from './create-chat-modal'
-import { ActivityIndicator, Pressable } from 'react-native'
-import { useRouter } from 'solito/router'
 import { Me } from '../utils/users'
+import { CreateChatModal } from './create-chat-modal'
 
 export default function MessageScreen() {
   const [loading, setLoading] = useState(true)
