@@ -3,6 +3,7 @@ import { Row } from '../../design/layout'
 import { View } from '../../design/view'
 import { P } from '../../design/typography'
 import { Feather } from '@expo/vector-icons'
+import timeAgo from '../utils/time-ago'
 
 export function ChatTile({ chat }) {
   return (
@@ -22,6 +23,9 @@ export function ChatTile({ chat }) {
           <View>
             <P>{chat.user_b.display_name}</P>
             <P className="text-gray-500">{chat.last_message}</P>
+            <P className="text-gray-500">
+              {timeAgo(new Date(chat.last_message_date.seconds * 1000))}
+            </P>
           </View>
         </Row>
         <Feather name="arrow-right" size={24} color="black" />
