@@ -16,10 +16,11 @@ import FriendRequsts from 'app/features/profile/friend-requests'
 import FriendsScreen from 'app/features/profile/friends'
 import { Provider } from 'app/provider'
 import { Stack } from 'expo-router'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { User, getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Toast from 'react-native-toast-message'
+import { ActivityIndicator } from 'react-native'
 
 const Tab = createBottomTabNavigator()
 const HomeStack = createNativeStackNavigator()
@@ -27,14 +28,20 @@ const MessageStack = createNativeStackNavigator()
 const ProfileDrawer = createDrawerNavigator()
 
 export default function Root() {
-  const [user, setUser] = useState(auth.currentUser)
-
+  const [user, setUser] = useState<User>()
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
+    setLoading(true)
     const event = onAuthStateChanged(auth, (user) => {
-      setUser(user)
+      if (user) {
+        setUser(user)
+      }
+      setLoading(false)
     })
     return () => event()
   }, [])
+
+  if (loading) return <ActivityIndicator className="mx-auto my-auto " />
 
   if (!user || user == undefined)
     return (

@@ -31,7 +31,7 @@ export function MeScreen() {
   if (user) {
     return (
       <View className="bg-primary w-full flex-1">
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View className="relative mx-auto flex w-full max-w-[450px]">
             <View className="p-3">
               <UserPhotos user={user} />

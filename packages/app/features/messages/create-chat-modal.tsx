@@ -41,7 +41,7 @@ export function CreateChatModal({ toggle, visible }) {
             }}
           >
             <Row className="items-center justify-between">
-              <Text>Create New Chat</Text>
+              <Text className="text-lg">Create New Chat</Text>
               <Ionicons name="exit" size={24} color="black" />
             </Row>
             {users.length === 0 && (

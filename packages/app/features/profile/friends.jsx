@@ -6,11 +6,13 @@ import { SetFriends } from '../utils/friends'
 import { ActivityIndicator, Pressable, ScrollView } from 'react-native'
 import { Row } from 'packages/app/design/layout'
 import { SolitoImage } from 'solito/image'
+import { useRouter } from 'solito/router'
 
 export default function FriendsScreen() {
   const [me, setMe] = useState(null)
   const [friends, setFriends] = useState(null)
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     Me().then(setMe)
@@ -32,9 +34,9 @@ export default function FriendsScreen() {
     )
 
   return (
-    <View className="flex justify-center pt-5">
+    <View className="flex justify-center p-2 pt-5">
       {friends.length > 0 && (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {friends.map((friend, idx) => (
             <View key={idx}>
               <Row className="m-3 items-center justify-between">
@@ -53,19 +55,19 @@ export default function FriendsScreen() {
                     <P>{friend.name}</P>
                   </View>
                 </Row>
-                <Pressable
+                {/* <Pressable
                   onPress={() => {
                     // TODO: delete friend
                   }}
                   className="rounded-xl bg-red-500 px-5 py-2"
                 >
                   <Text>Delete</Text>
-                </Pressable>
+                </Pressable> */}
                 <Pressable
                   onPress={() => {
-                    // TODO: Message Friend
+                    router.replace('/Messages')
                   }}
-                  className="bg-primary rounded-xl px-5 py-2"
+                  className="bg-primary rounded-xl px-5 py-4"
                 >
                   <Text>Message</Text>
                 </Pressable>

@@ -40,10 +40,12 @@ export async function GetStatus(user_a, user_b, setStatus) {
     }
     snapshot.forEach((doc) => {
       const data = doc.data()
-      if (data.fromRef === user_a && data.toRef === user_b) {
-        setStatus('pending')
+      if (data.status === 'accepted') {
+        setStatus('Friends')
+      } else if (data.fromRef === user_a && data.toRef === user_b) {
+        setStatus('Pending')
       } else if (data.fromRef === user_b && data.toRef === user_a) {
-        setStatus('received')
+        setStatus('Received')
       }
     })
   })

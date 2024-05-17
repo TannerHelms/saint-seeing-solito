@@ -1,22 +1,13 @@
-import { P, Text } from 'app/design/typography'
 import { View } from 'app/design/view'
-
-import { collection, getDocs } from 'firebase/firestore'
 import { ScrollView } from 'moti'
 import { useEffect, useState } from 'react'
-import { SolitoImage } from 'solito/image'
-import { db } from '../auth'
-import { ActivityIndicator, Pressable } from 'react-native'
-import { Row } from '../../design/layout'
-import { useRouter } from 'solito/router'
-import UserPhotos from '../profile/user-photos'
+import { ActivityIndicator } from 'react-native'
 import UserDetails from '../profile/user-details'
+import UserPhotos from '../profile/user-photos'
 import { Users } from '../utils/users'
-import { AuthGate } from '../auth/auth-gate'
 
 export function HomeScreen() {
   const [data, setData] = useState(null)
-  const router = useRouter()
 
   useEffect(() => {
     async function get() {
@@ -27,7 +18,7 @@ export function HomeScreen() {
   }, [])
 
   return (
-    <View className="w-full flex-1 p-3">
+    <View className="w-full flex-1 ">
       {!data && (
         <ActivityIndicator
           size="small"
@@ -36,7 +27,7 @@ export function HomeScreen() {
         />
       )}
       {data && (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {data.map((user, idx) => (
             <View
               key={idx}
