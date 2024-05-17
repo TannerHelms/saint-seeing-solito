@@ -90,7 +90,7 @@ export default function Root() {
           />
         </Tab.Navigator>
       </NavigationContainer>
-      <Toast />
+      <Toast topOffset={80} />
     </>
   )
 }

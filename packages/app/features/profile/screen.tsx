@@ -10,7 +10,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { createParam } from 'solito'
 import { ActivityIndicator, Pressable, ScrollView } from 'react-native'
 import Loader from '../utils/loader'
-import { GetStatus, SendFriendRequest } from '../utils/friends'
+import { GetFriendCount, GetStatus, SendFriendRequest } from '../utils/friends'
 import { Me } from '../utils/users'
 import Toast from 'react-native-toast-message'
 type Params = {
@@ -37,6 +37,7 @@ export default function ProfileScreen() {
       if (docSnap.exists()) {
         const profile = docSnap.data()
         profile.ref = docSnap.id
+        profile.friends = await GetFriendCount(docSnap.id)
         GetStatus(me!!.ref, profile.ref, (status) => {
           setStatus(status)
           setProfile(profile)
@@ -88,7 +89,7 @@ export default function ProfileScreen() {
           <View className="relative mx-auto flex w-full max-w-[450px]">
             <View className="p-3">
               <UserPhotos user={profile} />
-              <UserDetails user={profile} button={false} />
+              <UserDetails user={profile} button={false} friends={true} />
               <View className="mt-3 flex flex-row justify-between">
                 <P>Status</P>
                 <P>{status}</P>

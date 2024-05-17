@@ -6,14 +6,16 @@ import { ActivityIndicator, ScrollView } from 'react-native'
 import UserProfile from '../profile/user-profile'
 import UserPhotos from '../profile/user-photos'
 import UserDetails from '../profile/user-details'
+import { GetFriendCount } from '../utils/friends'
 export function MeScreen() {
   const [user, setUser] = useState<DocumentData>()
   useEffect(() => {
     const docRef = doc(db, 'users', auth.currentUser?.uid as string)
-    onSnapshot(docRef, (docSnap) => {
+    onSnapshot(docRef, async (docSnap) => {
       if (docSnap.exists()) {
         const profile = docSnap.data()
         profile.ref = docSnap.id
+        profile.friends = await GetFriendCount(docSnap.id)
         setUser(profile)
       }
     })
@@ -35,7 +37,7 @@ export function MeScreen() {
           <View className="relative mx-auto flex w-full max-w-[450px]">
             <View className="p-3">
               <UserPhotos user={user} />
-              <UserDetails user={user} button={false} />
+              <UserDetails user={user} button={false} friends={true} />
             </View>
             <UserProfile user={user} />
           </View>

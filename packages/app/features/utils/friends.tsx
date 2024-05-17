@@ -4,6 +4,7 @@ import {
   and,
   collection,
   doc,
+  getDocs,
   onSnapshot,
   or,
   query,
@@ -78,6 +79,18 @@ export async function AcceptFriendRequest(ref: string) {
   updateDoc(docRef, {
     status: 'accepted',
   })
+}
+
+export async function GetFriendCount(userRef) {
+  const q = query(
+    collection(db, 'friend_requests'),
+    and(
+      or(where('fromRef', '==', userRef), where('toRef', '==', userRef)),
+      where('status', '==', 'accepted'),
+    ),
+  )
+  const snapshot = await getDocs(q)
+  return snapshot.docs.length
 }
 
 export async function SetFriends(userRef, setFriends, loading) {
