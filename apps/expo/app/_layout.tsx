@@ -35,6 +35,8 @@ export default function Root() {
     const event = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user)
+      } else {
+        setUser(undefined)
       }
       setLoading(false)
     })

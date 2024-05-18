@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "solito-nativewind",
-    "slug": "solito-nativewind",
+    "name": "saint-seeing",
+    "slug": "saint-seeing",
     "version": "1.0.0",
-    "scheme": "solito-nativewind",
+    "scheme": "saint-seeing",
     "plugins": [
       [
         "expo-image-picker",
@@ -51,14 +51,14 @@
     },
     "extra": {
       "eas": {
-        "projectId": "0413a001-d135-4b2f-9db3-fa52cc720e34"
+        "projectId": "f31257c8-90ce-4b5f-abfc-017ac7f46d30"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/0413a001-d135-4b2f-9db3-fa52cc720e34"
+      "url": "https://u.expo.dev/f31257c8-90ce-4b5f-abfc-017ac7f46d30"
     }
   }
 }

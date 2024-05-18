@@ -14,6 +14,7 @@ const IMAGE_SIZE = 120
 export default function SignInScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -24,10 +25,13 @@ export default function SignInScreen() {
 
   const submitForm = async () => {
     try {
+      setLoading(true)
       await signInWithEmailAndPassword(auth, email, password)
     } catch (error) {
       console.log(error)
       console.log('Invalid email or password')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -54,6 +58,7 @@ export default function SignInScreen() {
         onPress={submitForm}
         className="bg-primary w-full rounded-xl py-2"
         textColor="text-black"
+        loading={loading}
       />
     </View>
   )
